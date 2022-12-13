@@ -3,13 +3,15 @@ import TasksManager from "./classes/TasksManager.js";
 
 let manager = new TasksManager();
 
-window.showCompleted = true
-window.showActives = true
+window.showCompleted = true;
+window.showActives = true;
 
-for (let task of JSON.parse(sessionStorage.getItem("Tasks")).tasks) {
-  let addedTask = new Task(task.name);
-  manager.addTask(addedTask);
-  addedTask.active = task.active;
+if (sessionStorage.getItem("Tasks")) {
+  for (let task of JSON.parse(sessionStorage.getItem("Tasks")).tasks) {
+    let addedTask = new Task(task.name);
+    manager.addTask(addedTask);
+    addedTask.active = task.active;
+  }
 }
 
 updateTasks();
@@ -19,8 +21,8 @@ window.add_task = function add_task(name) {
     let newTask = new Task(name);
     manager.addTask(newTask);
     document.getElementById("add-task-input").value = "";
-    window.showCompleted = true
-    window.showActives = true
+    window.showCompleted = true;
+    window.showActives = true;
     updateTasks();
   }
 };
@@ -46,19 +48,19 @@ window.allowRename = function allowRename(id) {
   inputEl.setAttribute("onkeypress", `handleInputKey(event, ${id})`);
 };
 
-window.newTaskInput = function newTaskInput(e){
+window.newTaskInput = function newTaskInput(e) {
   if (e.code == "Enter") {
     let inputEl = document.getElementById(`add-task-input`);
     if (inputEl.value.length > 2) {
       add_task(inputEl.value);
     }
   }
-}
+};
 
-window.clearAll = function clearAll(){
-  manager.tasks = []
-  updateTasks()
-}
+window.clearAll = function clearAll() {
+  manager.tasks = [];
+  updateTasks();
+};
 
 window.handleInputKey = function handleInputKey(e, id) {
   if (e.code == "Enter") {
@@ -71,24 +73,23 @@ window.handleInputKey = function handleInputKey(e, id) {
   }
 };
 
-window.onlyComplete = function onlyComplete(){
-  window.showCompleted = true 
-  window.showActives = false
-  updateTasks()
-}
+window.onlyComplete = function onlyComplete() {
+  window.showCompleted = true;
+  window.showActives = false;
+  updateTasks();
+};
 
-window.onlyPending = function onlyPending(){
-  window.showCompleted = false 
-  window.showActives = true
-  updateTasks()
-}
+window.onlyPending = function onlyPending() {
+  window.showCompleted = false;
+  window.showActives = true;
+  updateTasks();
+};
 
-window.showAll = function showAll(){
-  window.showActives = true
-  window.showCompleted = true
-  updateTasks()
-}
-
+window.showAll = function showAll() {
+  window.showActives = true;
+  window.showCompleted = true;
+  updateTasks();
+};
 
 function updateTasks() {
   let activesTitle = document.getElementById("active-title");
@@ -144,27 +145,26 @@ function updateTasks() {
         `;
     }
   });
-  if(manager.tasks.length > 2){
+  if (manager.tasks.length > 2) {
     clearButton.style.display = "block";
   }
-  if(actives > 0 && completed > 0)
-  {
+  if (actives > 0 && completed > 0) {
     pendingButton.style.display = "block";
     completedButton.style.display = "block";
   }
 
-  if((window.showCompleted == true && window.showActives == false) || (window.showCompleted == false && window.showActives == true))
-  {
+  if (
+    (window.showCompleted == true && window.showActives == false) ||
+    (window.showCompleted == false && window.showActives == true)
+  ) {
     showAllButton.style.display = "block";
   }
 
-  if(window.showCompleted == true && actives > 0 && completed > 0)
-  {
+  if (window.showCompleted == true && actives > 0 && completed > 0) {
     pendingButton.style.display = "block";
   }
 
-  if(window.showActives == true && completed > 0 && actives > 0)
-  {
+  if (window.showActives == true && completed > 0 && actives > 0) {
     completedButton.style.display = "block";
   }
 
