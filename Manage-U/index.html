@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="container" class="center">
+      <div id="app-container" class="center">
+        <div id="top-container" class="center">
+          <div id="logo-container" class="center">
+            <img src="logo.png" alt="" />
+          </div>
+          <div id="add-task" class="center">
+            <input
+              id="add-task-input"
+              onkeypress="newTaskInput(event)"
+              type="text"
+              placeholder="New Task"
+            />
+            <img
+              id="add-task-button"
+              class="btn"
+              src="buttons/add-button.png"
+              alt=""
+              onclick="add_task(document.getElementById('add-task-input').value)"
+            />
+          </div>
+        </div>
+        <div id="buttons-container" class="center">
+          <button
+            id="button-clear-all"
+            style="background-color: rgb(99, 0, 161)"
+            onclick="clearAll()"
+          >
+            Clear All
+          </button>
+          <button
+            id="button-pending"
+            style="background-color: #198754"
+            onclick="onlyPending()"
+          >
+            Pending
+          </button>
+          <button
+            id="button-completed"
+            style="background-color: #dc3545"
+            onclick="onlyComplete()"
+          >
+            Completed
+          </button>
+          <button
+            id="button-show-all"
+            style="background-color: rgb(137, 0, 52)"
+            onclick="showAll()"
+          >
+            Show All
+          </button>
+        </div>
+        <div id="bottom-container" class="center">
+          <div id="active-title" style="display: none">Active</div>
+          <div id="active-tasks-container" class="center"></div>
+          <div id="completed-title" style="display: none">Completed</div>
+          <div id="completed-tasks-container" class="center"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
